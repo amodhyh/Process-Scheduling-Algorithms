@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class SchedulingSimulator {
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(SchedulingSimulator::createAndShowGUI);
     }
@@ -24,8 +25,10 @@ public class SchedulingSimulator {
         String[] columnNames = {"Process ID", "Arrival Time", "Burst Time", "Priority"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(tableModel);
-        
         table.setFillsViewportHeight(true);
+        table.setSelectionBackground(Color.GRAY);
+        table.setSelectionForeground(Color.WHITE);
+
         JScrollPane tableScrollPane = new JScrollPane(table);
         
         // Button to add rows
@@ -38,13 +41,13 @@ public class SchedulingSimulator {
 
         // Buttons
         JButton runButton = new JButton("Run");
-        JButton cancelButton = new JButton("Cancel");
+        JButton ClearButton = new JButton("Clear");
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addRowButton);
         buttonPanel.add(runButton);
-        buttonPanel.add(cancelButton);
+        buttonPanel.add(ClearButton);
 
-        // Gantt Chart Placeholder
+        // Process Executing order Gnatt Chart Placeholder
         JLabel ganttChartLabel = new JLabel("Gantt Chart Output Here", SwingConstants.CENTER);
         ganttChartLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         ganttChartLabel.setPreferredSize(new Dimension(700, 100));
@@ -67,6 +70,11 @@ public class SchedulingSimulator {
             public void actionPerformed(ActionEvent e) {
                 String selectedAlgorithm = (String) algorithmSelection.getSelectedItem();
                 executeSchedulingAlgorithm(selectedAlgorithm, tableModel, ganttChartLabel);
+            }
+        });
+        ClearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
             }
         });
     }
